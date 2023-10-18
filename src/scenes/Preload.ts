@@ -13,9 +13,17 @@ class Preload extends PhaserSceneTool {
       frameHeight: 32,
     });
 
-    this.loadingImagesMockup();
+    this.load.image("aris", "assets/aris.png");
 
-    // this.load.audio("jumpSound", "assets/sounds/jump.mp3");
+    this.load.spritesheet("dashDust", "assets/effect/dash_dust.png", {
+      frameWidth: 90,
+      frameHeight: 68,
+    });
+
+    this.load.audio("super", "assets/sounds/super.mp3");
+    this.load.audio("afterbunnerOn", "assets/sounds/afterbunner_on.mp3");
+    this.load.audio("peace", "assets/sounds/save_peace_voice_korea.mp3");
+    this.load.audio("tooMany", "assets/sounds/too_many.mp3");
   }
 
   loadingImagesMockup() {
@@ -86,18 +94,26 @@ class Preload extends PhaserSceneTool {
     });
   }
 
-  create() {
+  async create() {
     this.cameras.main.fadeIn(1000, 255, 255, 255);
 
-    const logo = this.add.image(
-      this.gameWidth / 2 - 10,
-      this.gameHeight / 2 + 20,
+    const logo = this.add
+      .image(this.gameWidth / 2, this.gameHeight / 2, "kbb")
+      .setScale(0.3);
+    await this.setDelay(1000);
+    this.cameras.main.fadeOut(1000, 255, 255, 255);
+    await this.setDelay(1000);
+    logo.destroy();
+    this.cameras.main.fadeIn(1000, 255, 255, 255);
+    const logo2 = this.add.image(
+      this.gameWidth / 2,
+      this.gameHeight / 2,
       "interpretLogoWithCat"
     );
-
-    setTimeout(() => {
-      this.scene.start("GameScene");
-    }, 3000);
+    await this.setDelay(1000);
+    this.cameras.main.fadeOut(1000, 255, 255, 255);
+    await this.setDelay(1000);
+    this.scene.start("GameScene");
   }
 }
 
