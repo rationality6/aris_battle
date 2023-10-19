@@ -1,10 +1,14 @@
 import DashDusts from "./DashDusts";
 
+import BustShot from "./BustShot";
+
 class Aris extends Phaser.Physics.Arcade.Sprite {
   private cursors: any;
   lastDirection: number = Phaser.Physics.Arcade.FACING_RIGHT;
   moveSpeed: number = 200;
   dashdusts: any;
+  bustShot: any;
+  middleOfAction: boolean = false;
 
   constructor(scene: any, x: number, y: number) {
     super(scene, x, y, "aris");
@@ -27,9 +31,16 @@ class Aris extends Phaser.Physics.Arcade.Sprite {
       yoyo: true,
       repeat: -1,
     });
+
+    this.bustShot = new BustShot(this.scene, this);
   }
 
   update() {
+    if (this.middleOfAction) {
+      this.setVelocityX(0);
+      return;
+    }
+
     const { left, right, space, up } = this.cursors;
     const onFloorValue = this.body.onFloor();
     const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space);

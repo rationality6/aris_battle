@@ -17,17 +17,17 @@ class DashDust extends Phaser.Physics.Arcade.Sprite {
     this.lastDirection = lastDirection;
 
     this.x = x;
-    this.y = y+ 100;
+    this.y = y + 75;
 
     this.activateProjectile(true);
     this.play("dashDust", true);
 
     if (this.lastDirection === Phaser.Physics.Arcade.FACING_RIGHT) {
       this.setFlipX(false);
-      this.x -= 35;
+      this.x -= 65;
     } else {
       this.setFlipX(true);
-      this.x += 35;
+      this.x += 65;
     }
     this.y -= 11;
 
