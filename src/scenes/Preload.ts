@@ -31,6 +31,7 @@ class Preload extends PhaserSceneTool {
     this.load.audio("peace", "assets/sounds/save_peace_voice_korea.mp3");
     this.load.audio("tooMany", "assets/sounds/too_many.mp3");
     this.load.audio("fireball", "assets/sounds/fireball.mp3");
+    this.load.audio("hit", "assets/sounds/ruru_hit35.mp3");
   }
 
   loadingImagesMockup() {
@@ -102,24 +103,26 @@ class Preload extends PhaserSceneTool {
   }
 
   async create() {
+    const logoExposeSetting: Number = this.isLocal ? 100 : 1000;
+
     this.cameras.main.fadeIn(1000, 255, 255, 255);
 
     const logo = this.add
       .image(this.gameWidth / 2, this.gameHeight / 2, "kbb")
       .setScale(0.3);
-    await this.setDelay(1000);
-    this.cameras.main.fadeOut(1000, 255, 255, 255);
-    await this.setDelay(1000);
+    await this.setDelay(logoExposeSetting);
+    this.cameras.main.fadeOut(logoExposeSetting, 255, 255, 255);
+    await this.setDelay(logoExposeSetting);
     logo.destroy();
-    this.cameras.main.fadeIn(1000, 255, 255, 255);
+    this.cameras.main.fadeIn(logoExposeSetting, 255, 255, 255);
     const logo2 = this.add.image(
       this.gameWidth / 2,
       this.gameHeight / 2,
       "interpretLogoWithCat"
     );
-    await this.setDelay(1000);
-    this.cameras.main.fadeOut(1000, 255, 255, 255);
-    await this.setDelay(1000);
+    await this.setDelay(logoExposeSetting);
+    this.cameras.main.fadeOut(logoExposeSetting, 255, 255, 255);
+    await this.setDelay(logoExposeSetting);
     this.scene.start("GameScene");
   }
 }

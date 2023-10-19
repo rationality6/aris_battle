@@ -9,14 +9,14 @@ class BustShot extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.player = player
+    this.player = player;
 
     this.effectName = "bustShot";
 
     this.setAngle(90);
     this.setScale(4);
 
-    this.setVisible(false)
+    this.setVisible(false);
 
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
   }
@@ -42,8 +42,10 @@ class BustShot extends Phaser.Physics.Arcade.Sprite {
     await this.scene.setDelay(2100);
 
     this.activateProjectile(true);
-    
+
     this.play("bustShot");
+
+    this.scene.cameras.main.shake(1500, 0.005);
 
     this.on(
       "animationcomplete",
@@ -51,10 +53,21 @@ class BustShot extends Phaser.Physics.Arcade.Sprite {
         if (animation.key === this.effectName) {
           this.activateProjectile(false);
           this.player.middleOfAction = false;
+          this.clearCameraZoom();
         }
       },
       this
     );
+  }
+
+  clearCameraZoom() {
+    this.scene.cameras.main.pan(
+      this.scene.gameWidth / 2,
+      this.scene.gameHeight / 2,
+      1000
+    );
+    this.scene.cameras.main.zoomTo(1, 1000);
+    this.scene.zoomOnPlayer = false;
   }
 
   activateProjectile(isActive) {

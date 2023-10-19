@@ -37,24 +37,6 @@ class GameScene extends PhaserSceneTool {
       this.sound.play("tooMany");
     });
 
-    this.createImageButton(250, 50, "kbb", () => {
-      this.player.bustShot.init(
-        this.player.lastDirection,
-        this.player.x,
-        this.player.y
-      );
-      this.player2.bustShot.init(
-        this.player2.lastDirection,
-        this.player2.x,
-        this.player2.y
-      );
-      this.player3.bustShot.init(
-        this.player3.lastDirection,
-        this.player3.x,
-        this.player3.y
-      );
-    });
-
     this.createImageButton(300, 50, "kbb", () => {
       if (this.zoomOnPlayer) {
         return;
@@ -70,7 +52,11 @@ class GameScene extends PhaserSceneTool {
 
       this.zoomOnPlayer = true;
       this.cameras.main.pan(this.player.x, this.player.y, 1000);
-      this.cameras.main.zoomTo(3, 1000);
+      this.cameras.main.zoomTo(2, 1000);
+    });
+
+    this.createImageButton(350, 50, "kbb", () => {
+      this.gotHitEffect()
     });
 
     this.createImageButton(this.gameWidth - 30, 50, "kbb", () => {
@@ -101,6 +87,19 @@ class GameScene extends PhaserSceneTool {
     });
   }
 
+  async gotHitEffect() {
+    this.cameras.main.shake(700, 0.007);
+    this.sound.play("hit");
+    this.sound.play("yell");
+    this.player.setTint(0xff0000);
+    await this.setDelay(100);
+    this.player.clearTint();
+    await this.setDelay(100);
+    this.player.setTint(0xff0000);
+    await this.setDelay(100);
+    this.player.clearTint();
+  }
+
   setAnimation() {
     this.anims.create({
       key: "dashDust",
@@ -123,19 +122,7 @@ class GameScene extends PhaserSceneTool {
     });
   }
 
-  update() {
-    this.clearZoomIfOnZoom();
-  }
-
-  clearZoomIfOnZoom() {
-    if (this.zoomOnPlayer) {
-      this.input.on("pointerdown", (pointer) => {
-        this.cameras.main.pan(this.gameWidth / 2, this.gameHeight / 2, 3000);
-        this.cameras.main.zoomTo(1, 3000);
-        this.zoomOnPlayer = false;
-      });
-    }
-  }
+  update() {}
 }
 
 export default GameScene;
