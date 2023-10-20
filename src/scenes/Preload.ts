@@ -25,6 +25,23 @@ class Preload extends PhaserSceneTool {
       frameHeight: 145,
     });
 
+    this.load.spritesheet("bustShot", "assets/effect/bustshot.png", {
+      frameWidth: 69,
+      frameHeight: 145,
+    });
+
+    this.load.spritesheet("slashEffect", "assets/effect/slash_effect.png", {
+      frameWidth: 126,
+      frameHeight: 150,
+    });
+
+    this.load.image("bgClouds", "assets/background/bg-clouds.png");
+    this.load.image("bgMountains", "assets/background/bg-mountains.png");
+    this.load.image("bgTrees", "assets/background/bg-trees.png");
+
+    this.load.audio("swosh_sound1", "assets/sounds/swosh_sound1.mp3");
+    this.load.audio("blasphemy", "assets/sounds/blasphemy.mp3");
+    this.load.audio("toFather", "assets/sounds/to_father.mp3");
     this.load.audio("yell", "assets/sounds/ruru_voice_yell.mp3");
     this.load.audio("super", "assets/sounds/super.mp3");
     this.load.audio("afterbunnerOn", "assets/sounds/afterbunner_on.mp3");
